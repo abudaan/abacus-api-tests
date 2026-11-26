@@ -5,6 +5,10 @@ script_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P )
 backend_dir=${ABACUS_BACKEND:-$script_dir/../../backend}
 base=http://localhost:8080
 
+# Cleanup previous results
+rm -rf "$script_dir/output"
+mkdir "$script_dir/output"
+
 # Separate database so the reset doesn't wipe the regular dev db.sqlite
 # (relative to backend/, ignored by backend/.gitignore)
 test_db=api-test.sqlite
@@ -37,3 +41,20 @@ httpyac send \
   setup/create_election.http \
   session_complete/test.http \
   --all --bail --output short --output-failed exchange
+
+
+unzip -q -d "$script_dir/output/results-1" "$script_dir/output/results-1.zip"
+unzip -q -d "$script_dir/output/results-2" "$script_dir/output/results-2.zip"
+
+chmod 644 "$script_dir/output/results-1/Model_Na31-1.pdf"
+chmod 644 "$script_dir/output/results-2/Model_Na31-1.pdf"
+
+pdf_crc1=$(crc32 "$script_dir/output/results-1/Model_Na31-1.pdf")
+pdf_crc2=$(crc32 "$script_dir/output/results-2/Model_Na31-1.pdf")
+
+echo $pdf_crc1
+echo $pdf_crc2
+
+if [ "$pdf_crc1" = "$pdf_crc2" ]; then
+  echo "Generated PDF has not been updated!"
+fi
