@@ -1,0 +1,125 @@
+@base = http://localhost:8080
+
+### create admin
+POST {{base}}/api/initialise/first-admin
+Content-Type: application/json
+
+{
+  "fullname": "Bernard Braam",
+  "temp_password": "Temp01Password",
+  "username": "admin"
+}
+
+### admin login 
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Temp01Password"
+}
+
+
+### create coordinator_gsb
+POST {{base}}/api/users
+Content-Type: application/json
+
+{
+  "fullname": "Cor de Man",
+  "role": "coordinator_gsb",
+  "temp_password": "Coordinator01Password01",
+  "username": "coord1"
+}
+
+
+### create typist 1
+POST {{base}}/api/users
+Content-Type: application/json
+
+{
+  "fullname": "Theo Typist",
+  "role": "typist_gsb",
+  "temp_password": "Typist01Password01",
+  "username": "typist1"
+}
+
+
+### create typist 2
+POST {{base}}/api/users
+Content-Type: application/json
+
+{
+  "fullname": "Thea Typist",
+  "role": "typist_gsb",
+  "temp_password": "Typist02Password02",
+  "username": "typist2"
+}
+
+
+### login typist 1
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+  "username": "typist1",
+  "password": "Typist01Password01"
+}
+
+### update tmp password typist1
+PUT {{base}}/api/account
+Content-Type: application/json
+
+{
+  "username": "typist1",
+  "password": "Password01Typist01"
+}
+
+
+### login typist 2
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+  "username": "typist2",
+  "password": "Typist02Password02"
+}
+
+
+### update tmp password typist2
+PUT {{base}}/api/account
+Content-Type: application/json
+
+{
+  "username": "typist2",
+  "password": "Password02Typist02"
+}
+
+
+### login coordinator_gsb
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+  "username": "coord1",
+  "password": "Coordinator01Password01"
+}
+
+### update tmp password coordinator_gsb
+PUT {{base}}/api/account
+Content-Type: application/json
+
+{
+  "username": "coord1",
+  "password": "Password01Coordinator01"
+}
+
+
+### logout
+# POST {{base}}/api/logout
+
+# {{
+#   console.log(response.parsedBody);
+#   const responses = await Promise.all(
+#     response.parsedBody.map(b => fetch("").then(response => response.json()))
+#   );
+# }}

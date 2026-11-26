@@ -1,0 +1,38 @@
+@base = http://localhost:8080
+
+
+### login coordinator_gsb
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+  "username": "coord1",
+  "password": "Password01Coordinator01"
+}
+
+
+### generate election
+POST {{base}}/api/generate_test_election
+Content-Type: application/json
+
+{
+  "candidate_distribution_slope": "800..1500",
+  "candidates_per_group": "3",
+  "committee_category": "GSB",
+  "counting_method": "DSO",
+  "custom_name": "Test API#",
+  "election_category": "Municipal",
+  "first_data_entry": "100",
+  "generate_drawing_lots": false,
+  "generate_p22_2_variants": false,
+  "gsbs": "1",
+  "political_group_distribution_slope": "800..1500",
+  "political_groups": "2",
+  "polling_stations": "5",
+  "seats": "3",
+  "second_data_entry": "100",
+  "voters": "50",
+  "turnout": "21", 
+  "with_data_entry": true
+}
+

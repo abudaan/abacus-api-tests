@@ -1,0 +1,54 @@
+@base = http://localhost:8080
+
+### login coordinator_gsb
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+  "username": "coord1",
+  "password": "Password01Coordinator01"
+}
+
+
+### set session details (files are only generated when a start date/time is set)
+PUT {{base}}/api/elections/1/committee_sessions/1
+Content-Type: application/json
+
+{
+  "location": "Juinen",
+  "start_date": "2026-11-25",
+  "start_time": "09:00"
+}
+
+### complete committee session
+PUT {{base}}/api/elections/1/committee_sessions/1/status
+Content-Type: application/json
+
+{
+  "status": "completed"
+}
+
+### download files
+# @noLog
+GET {{base}}/api/elections/1/committee_sessions/1/download_zip_results
+
+?? status == 200
+>>! ./output/results-1.zip
+
+
+### update session details
+PUT {{base}}/api/elections/1/committee_sessions/1
+Content-Type: application/json
+
+{
+  "location": "Woerden",
+  "start_date": "1874-09-23",
+  "start_time": "11:33"
+}
+
+### download files again, details are not updated
+# @noLog
+GET {{base}}/api/elections/1/committee_sessions/1/download_zip_results
+
+?? status == 200
+>>! ./output/results-2.zip
