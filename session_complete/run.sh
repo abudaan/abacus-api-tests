@@ -12,6 +12,7 @@ test_db=api-test.sqlite
 if curl -s -o /dev/null "$base"; then
 #   echo "Something is already running on $base, stop it first" >&2
 #   exit 1
+    echo "Something is already running on $base, stop it first"
     kill -9 $(lsof -t -i :8080)
 fi
 
