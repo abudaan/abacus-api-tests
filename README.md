@@ -13,7 +13,7 @@ npm install -g httpyac
 ### 1 Changing committee session details after session is completed
 
 ```
-ABACUS_BACKEND=path/to/abacus ./run.sh
+ABACUS_BACKEND=path/to/abacus session_complete/run.sh
 ```
 
 
